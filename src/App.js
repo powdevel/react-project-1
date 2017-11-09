@@ -12,13 +12,39 @@ class BooksApp extends React.Component {
         * users can use the browser's back and forward buttons to navigate between
         * pages, as well as provide a good URL they can bookmark and share.
         */
-        books: BooksAPI.getAll(),
+        books: [],
+        bookshelfs: [],
         showSearchPage: false
     }
 
+    // this.state.books.filter( e => e.shelf == 'currentlyReading' );
+
+    constructor(props) {
+        super(props);
+        BooksAPI.getAll().then( data => {
+            // this.state = data
+            this.setState({books: data});
+            this.initializeBookShelfs();
+        });
+    }
+
+    initializeBookShelfs () {
+        let bookshelfs = this.state.books.map( e => e.shelf ).filter( (e, i, self) => self.indexOf(e) == i );
+        this.setState({
+            bookshelfs: bookshelfs
+        });
+    }
+    loadBookShelfs( bookshelf ) {
+
+        return this.state.books.filter( e => e.shelf == bookshelf );
+    }
+
+
     render() {
 
-        BooksAPI.getAll().then( data => console.log(data) );
+        // BooksAPI.getAll().then( data => console.log(data) );
+        // console.log( this.state.shelfs );
+
 
         return (
             <div className="app">
@@ -55,12 +81,15 @@ class BooksApp extends React.Component {
                         </div>
                         <div className="list-books-content">
                             <div>
-                                <BookShelf>
-                                </BookShelf>
-                                <BookShelf>
-                                </BookShelf>
-                                <BookShelf>
-                                </BookShelf>
+                                {
+                                    this.state.bookshelfs.map( e =>
+                                        <BookShelf books={
+                                                this.loadBookShelfs(e)
+                                            }>
+                                        </BookShelf>
+                                    )
+                                }
+
                             </div>
                         </div>
                         <div className="open-search">

@@ -3,6 +3,9 @@ import Book from './Book'
 
 class BookShelf extends React.Component {
     render() {
+
+        console.log(this.props);
+
         return (
             <div className="bookshelf">
                 <h2 className="bookshelf-title">
@@ -10,10 +13,14 @@ class BookShelf extends React.Component {
                 </h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
-                        <li>
-                            <Book>
-                            </Book>
-                        </li>
+                        {
+                            this.props.books.map( e =>
+                                <li>
+                                    <Book data={e}>
+                                    </Book>
+                                </li>
+                            )
+                        }
                     </ol>
                 </div>
             </div>

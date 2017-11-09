@@ -5,11 +5,14 @@ class BookShelf extends React.Component {
     render() {
         return (
             <div className="bookshelf">
-                <h2 className="bookshelf-title">Bookshelf component</h2>
+                <h2 className="bookshelf-title">
+                    Bookshelf component
+                </h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">
                         <li>
-                            <Book/>
+                            <Book>
+                            </Book>
                         </li>
                     </ol>
                 </div>

@@ -38,7 +38,9 @@ body, .app {
 
 .bookshelf-title {
   border-bottom: 1px solid #dedede;
+  text-transform: capitalize;
 }
+
 .bookshelf-books {
   text-align: center;
 }

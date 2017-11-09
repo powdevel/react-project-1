@@ -83,9 +83,7 @@ class BooksApp extends React.Component {
                             <div>
                                 {
                                     this.state.bookshelfs.map( e =>
-                                        <BookShelf books={
-                                                this.loadBookShelfs(e)
-                                            }>
+                                        <BookShelf books={ this.loadBookShelfs(e)} id={e} key={e} >
                                         </BookShelf>
                                     )
                                 }

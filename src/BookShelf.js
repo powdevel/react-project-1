@@ -9,7 +9,7 @@ class BookShelf extends React.Component {
         return (
             <div className="bookshelf">
                 <h2 className="bookshelf-title">
-                    Bookshelf component
+                    { this.props.id.replace(/([a-z](?=[A-Z]))/g, '$1 ') }
                 </h2>
                 <div className="bookshelf-books">
                     <ol className="books-grid">

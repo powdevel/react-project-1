@@ -1,9 +1,14 @@
 import React from 'react'
 
 class Book extends React.Component {
+    
+    // updateBook (title, shelf) {
+    //     // console.log('evento',e);
+    //     // console.log('book',book);
+    //     this.props.data.updateBook(title, );
+    // }
+
     render() {
-
-
         return (
             <div className="book">
                 <div className="book-top">
@@ -12,7 +17,7 @@ class Book extends React.Component {
                         }>
                     </div>
                     <div className="book-shelf-changer">
-                        <select defaultValue={this.props.data.shelf} >
+                        <select defaultValue={this.props.data.shelf} onChange={ (e) => this.props.updateBook(this.props.data.title, e.target.value) } >
                             <option value="none" disabled>Move to...
                             </option>
                             <option value="currentlyReading">Currently Reading

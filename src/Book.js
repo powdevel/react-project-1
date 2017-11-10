@@ -12,7 +12,7 @@ class Book extends React.Component {
                         }>
                     </div>
                     <div className="book-shelf-changer">
-                        <select>
+                        <select defaultValue={this.props.data.shelf} >
                             <option value="none" disabled>Move to...
                             </option>
                             <option value="currentlyReading">Currently Reading

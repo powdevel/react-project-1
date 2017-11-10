@@ -3,7 +3,6 @@ import * as BooksAPI from './BooksAPI'
 import './App.css'
 import BookShelf from './BookShelf'
 
-
 class BooksApp extends React.Component {
     state = {
         /**
@@ -21,11 +20,7 @@ class BooksApp extends React.Component {
 
     constructor(props) {
         super(props);
-        BooksAPI.getAll().then( data => {
-            // this.state = data
-            this.setState({books: data});
-            this.initializeBookShelfs();
-        });
+        this.loadBooks();
     }
 
     initializeBookShelfs () {
@@ -34,11 +29,32 @@ class BooksApp extends React.Component {
             bookshelfs: bookshelfs
         });
     }
-    loadBookShelfs( bookshelf ) {
 
+    loadBooks () {
+        BooksAPI.getAll().then( data => {
+            this.setState({books: data});
+            this.initializeBookShelfs();
+        });
+    }
+
+    loadBooksFromBookShelf( bookshelf ) {
         return this.state.books.filter( e => e.shelf == bookshelf );
     }
 
+    updateBook = (title, shelf) => {
+        BooksAPI.update(title, shelf)
+
+        let books = this.state.books.map( e => {
+            if (e.title == title) {
+                e.shelf = shelf;
+            }
+            return e;
+        });
+
+        this.setState({
+            books: books
+        });
+    }
 
     render() {
 
@@ -83,7 +99,7 @@ class BooksApp extends React.Component {
                             <div>
                                 {
                                     this.state.bookshelfs.map( e =>
-                                        <BookShelf books={ this.loadBookShelfs(e)} id={e} key={e} >
+                                        <BookShelf books={ this.loadBooksFromBookShelf(e)} id={e} key={e} updateBook={ this.updateBook } >
                                         </BookShelf>
                                     )
                                 }

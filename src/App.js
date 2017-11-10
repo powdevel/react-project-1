@@ -17,7 +17,7 @@ class BooksApp extends React.Component {
   }
 
   initializeBookShelfs() {
-    let bookshelfs = this.state.books.map(e => e.shelf).filter((e, i, self) => self.indexOf(e) == i);
+    let bookshelfs = this.state.books.map(e => e.shelf).filter((e, i, self) => self.indexOf(e) === i);
     this.setState({bookshelfs: bookshelfs});
   }
 
@@ -28,15 +28,17 @@ class BooksApp extends React.Component {
     });
   }
 
-  getBooks = () => this.state.books loadBooksFromBookShelf(bookshelf) {
-    return this.state.books.filter(e => e.shelf == bookshelf);
+  getBooks = () => this.state.books;
+
+  loadBooksFromBookShelf(bookshelf) {
+    return this.state.books.filter(e => e.shelf === bookshelf);
   }
 
   updateBook = (title, shelf) => {
     BooksAPI.update(title, shelf)
 
     let books = this.state.books.map(e => {
-      if (e.title == title) {
+      if (e.title === title) {
         e.shelf = shelf;
       }
       return e;

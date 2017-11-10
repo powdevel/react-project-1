@@ -1,29 +1,50 @@
 import React from 'react'
 import Book from './Book'
 import {Link} from 'react-router-dom'
+import DebounceInput from 'react-debounce-input'
 
 class Search extends React.Component {
+
+  state = {
+    query: '',
+    filteredBooks: []
+  }
+
+  updateFilteredBooks = (query) => {
+    const searchBinA = (b, a) => a.toLowerCase().indexOf(b.toLowerCase()) !== -1;
+
+    const joinTitleAndAuthors = e => {
+      e.titleAndAuthors = e.title + e.authors.join("")
+      return e;
+    }
+    let filteredBooks = this.props.getBooks(query).map(joinTitleAndAuthors).filter(e => searchBinA(query, e.titleAndAuthors));
+    filteredBooks.map(e => <Book data={e} key={e.title} updateBook={this.props.updateBook}/>);
+    this.setState({query: query, filteredBooks: filteredBooks});
+  }
+
   render() {
     return (<div className="search-books">
       <div className="search-books-bar">
-        <a className="close-search" onClick={() => this.setState({showSearchPage: false})}>Close
-        </a>
+        <Link className="close-search" to="/">
+          Close
+        </Link>
         <div className="search-books-input-wrapper">
-          {/* NOTES: The search from BooksAPI is limited to a particular set of search terms.
-                You can find these search terms here:
-                https://github.com/udacity/reactnd-project-myreads-starter/blob/master/SEARCH_TERMS.md
-
-                However, remember that the BooksAPI.search method DOES search by title or author. So, don't worry if
-                you don't find a specific author or title. Every search is limited by search terms.
-                */
-          }
-          <input type="text" placeholder="Search by title or author"/>
-          
+          <DebounceInput debounceTimeout={300} onChange={event => this.updateFilteredBooks(event.target.value)}/>
         </div>
       </div>
-      <div className="search-books-results">
-        <ol className="books-grid"></ol>
-      </div>
+      {
+        this.state.query !== "" && (<div className="search-books-results">
+          <ol className="books-grid">
+            {this.state.filteredBooks.map(e => <Book data={e} updateBook={this.props.updateBook} key={e.title}/>)}
+          </ol>
+        </div>)
+      }
+      {
+        this.state.query === "" && (<center>
+          <p className="search-books-results">Your search results will appear right here :)</p>
+        </center>)
+      }
+
     </div>)
   }
 }

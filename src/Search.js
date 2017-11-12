@@ -35,7 +35,7 @@ class Search extends React.Component {
       {
         this.state.query !== "" && (<div className="search-books-results">
           <ol className="books-grid">
-            {this.state.filteredBooks.map(e => <Book data={e} updateBook={this.props.updateBook} key={e.title}/>)}
+            {this.state.filteredBooks.map(e => <li key={e.title}><Book data={e} updateBook={this.props.updateBook}/></li>)}
           </ol>
         </div>)
       }

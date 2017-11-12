@@ -174,3 +174,11 @@ body, .app {
   text-align: center;
   font-size: 0.8em;
 }
+
+
+.book-loader {
+  background: url('./imgs/book.gif') top center no-repeat;
+  margin-top:3rem;
+  padding-top:5rem;
+  text-align: center;
+}

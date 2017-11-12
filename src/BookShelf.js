@@ -14,6 +14,11 @@ class BookShelf extends React.Component {
               <Book data={e} updateBook={this.props.updateBook}></Book>
             </li>)
           }
+          {
+            this.props.books.length === 0 && (<center>
+              <p>No books found in this category</p>
+            </center>)
+          }
         </ol>
       </div>
     </div>)

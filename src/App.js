@@ -8,7 +8,8 @@ import Search from './Search.js'
 class BooksApp extends React.Component {
   state = {
     books: [],
-    bookshelfs: []
+    bookshelfs: [],
+    loaded: false
   }
 
   constructor(props) {
@@ -22,7 +23,7 @@ class BooksApp extends React.Component {
 
   loadBooks() {
     BooksAPI.getAll().then(books => {
-      this.setState({books: books, bookshelfs: this.getBookShelfs( books ) });
+      this.setState({books: books, bookshelfs: this.getBookShelfs(books), loaded: true});
     });
   }
 
@@ -32,14 +33,14 @@ class BooksApp extends React.Component {
     return books.filter(e => e.shelf === bookshelf);
   }
 
-  changeShelfFromBook = (e,title,shelf) => {
+  changeShelfFromBook = (e, title, shelf) => {
     e.title === title && (e.shelf = shelf)
     return e;
   }
 
   updateBook = (title, shelf) => {
     BooksAPI.update(title, shelf)
-    let books = this.state.books.map( (e) => this.changeShelfFromBook(e,title,shelf) )
+    let books = this.state.books.map((e) => this.changeShelfFromBook(e, title, shelf))
     this.setState({books: books});
   }
 
@@ -54,9 +55,8 @@ class BooksApp extends React.Component {
             <h1>MyReads</h1>
           </div>
           <div className="list-books-content">
-            <div>
-              {this.state.bookshelfs.map(e => <BookShelf books={this.booksFromBookShelf(e, this.state.books)} id={e} key={e} updateBook={this.updateBook}></BookShelf>)}
-            </div>
+            {this.state.bookshelfs.map(e => <BookShelf books={this.booksFromBookShelf(e, this.state.books)} id={e} key={e} updateBook={this.updateBook}></BookShelf>)}
+            {!this.state.loaded && (<div className="book-loader">Loading contents...</div>)}
           </div>
           <div className="open-search">
             <Link to="/search">

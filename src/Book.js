@@ -1,7 +1,7 @@
 import React from 'react'
 
 class Book extends React.Component {
-    
+
   // updateBook (title, shelf) {
   //      console.log('evento',e);
   //      console.log('book',book);
@@ -17,7 +17,7 @@ class Book extends React.Component {
             backgroundImage: `url("${this.props.data.imageLinks.thumbnail}")`
           }}></div>
         <div className="book-shelf-changer">
-          <select defaultValue={this.props.data.shelf} onChange={(e) => this.props.updateBook(this.props.data.title, e.target.value)}>
+          <select defaultValue={this.props.data.shelf} onChange={(e) => this.props.updateBook(this.props.data, e.target.value)}>
             <option value="none" disabled="disabled">Move to...
             </option>
             <option value="currentlyReading">Currently Reading

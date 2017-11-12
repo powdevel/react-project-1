@@ -38,9 +38,9 @@ class BooksApp extends React.Component {
     return e;
   }
 
-  updateBook = (title, shelf) => {
-    BooksAPI.update(title, shelf)
-    let books = this.state.books.map((e) => this.changeShelfFromBook(e, title, shelf))
+  updateBook = (book, shelf) => {
+    BooksAPI.update(book, shelf)
+    let books = this.state.books.map((e) => this.changeShelfFromBook(e, book.title, shelf))
     this.setState({books: books});
   }
 

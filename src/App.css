@@ -14,7 +14,16 @@ body, .app {
   padding: 10px 0;
   background: #2e7c31;
   text-align: center;
+  width: 100%;
+  position:fixed;
+  top:0px;
+  z-index: 1;
 }
+
+.list-books {
+  margin-top:100px;
+}
+
 .list-books-title h1 {
   font-weight: 400;
   margin: 0;
@@ -69,11 +78,12 @@ body, .app {
 .search-books-bar {
   position: fixed;
   width: 100%;
-  top: 0;
+  top: 69px;
   left: 0;
   z-index: 5;
   display: flex;
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 0 6px rgba(0,0,0,0.23);
+  flex-wrap: wrap;
 }
 .search-books-input-wrapper {
   flex: 1;
@@ -102,7 +112,7 @@ body, .app {
 }
 
 .search-books-results {
-  padding: 80px 10px 20px;
+  padding: 130px 10px 20px;
 }
 
 /* books grid */
@@ -117,12 +127,13 @@ body, .app {
   flex-wrap: wrap;
 }
 .books-grid li {
-  padding: 10px 15px;
   text-align: left;
 }
 
 .book {
-  width: 140px;
+  width: 160px;
+  padding: 10px 15px;
+  height: 300px;
 }
 .book-title,
 .book-authors {
@@ -180,5 +191,49 @@ body, .app {
   background: url('./imgs/book.gif') top center no-repeat;
   margin-top:3rem;
   padding-top:5rem;
+  text-align: center;
+}
+
+.fade-exit {
+  transition: .25s;
+  opacity: 1;
+  width: 160px;
+  height: 300px;
+}
+
+.fade-exit-active {
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+}
+
+.fade-enter {
+  opacity: 0;
+  width: 0px;
+  height: 0px;
+  transition: .25s;
+}
+
+.fade-enter-active {
+  width: 160px;
+  height: 300px;
+  opacity: 1;
+}
+
+.fade-appear {
+  opacity: 0;
+  height: 0px;
+  width: 0px;
+  transition: .25s;
+}
+
+.fade-appear-active {
+  opacity: 1;
+  height: 300px;
+  width: 160px;
+}
+
+.search-message {
+  margin-top:2rem;
   text-align: center;
 }

@@ -2,6 +2,14 @@ import React from 'react'
 import Book from './Book'
 import {Link} from 'react-router-dom'
 import DebounceInput from 'react-debounce-input'
+import {CSSTransition, TransitionGroup} from 'react-transition-group'
+
+const Fade = ({
+  children,
+  ...props
+}) => (<CSSTransition {...props} timeout={250} classNames="fade">
+  {children}
+</CSSTransition>);
 
 class Search extends React.Component {
 
@@ -24,6 +32,7 @@ class Search extends React.Component {
 
   render() {
     return (<div className="search-books">
+
       <div className="search-books-bar">
         <Link className="close-search" to="/">
           Close
@@ -32,19 +41,17 @@ class Search extends React.Component {
           <DebounceInput debounceTimeout={300} onChange={event => this.updateFilteredBooks(event.target.value)}/>
         </div>
       </div>
-      {
-        this.state.query !== "" && (<div className="search-books-results">
-          <ol className="books-grid">
-            {this.state.filteredBooks.map(e => <li key={e.title}><Book data={e} updateBook={this.props.updateBook}/></li>)}
-          </ol>
-        </div>)
-      }
-      {
-        this.state.query === "" && (<center>
-          <p className="search-books-results">Your search results will appear right here :)</p>
-        </center>)
-      }
-
+      <div className="search-books-results">
+        <TransitionGroup component="ol" className="books-grid">
+          {
+            this.state.query !== "" && this.state.filteredBooks.map(e => <Fade key={e.title}>
+              <li><Book data={e} updateBook={this.props.updateBook}/></li>
+            </Fade>)
+          }
+        </TransitionGroup>
+        {this.state.query !== "" && this.state.filteredBooks.length === 0 && (<p className="search-message">No results found for your search</p>)}
+        {this.state.query === "" && (<p className="search-message">Your search results will appear right here :)</p>)}
+      </div>
     </div>)
   }
 }

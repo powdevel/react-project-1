@@ -30,8 +30,8 @@ class BooksApp extends React.Component {
 
   getBooks = () => this.state.books;
 
-  loadBooksFromBookShelf(bookshelf) {
-    return this.state.books.filter(e => e.shelf === bookshelf);
+  booksFromBookShelf(bookshelf, books) {
+    return books.filter(e => e.shelf === bookshelf);
   }
 
   updateBook = (title, shelf) => {
@@ -59,7 +59,7 @@ class BooksApp extends React.Component {
           </div>
           <div className="list-books-content">
             <div>
-              {this.state.bookshelfs.map(e => <BookShelf books={this.loadBooksFromBookShelf(e)} id={e} key={e} updateBook={this.updateBook}></BookShelf>)}
+              {this.state.bookshelfs.map(e => <BookShelf books={this.booksFromBookShelf(e, this.state.books)} id={e} key={e} updateBook={this.updateBook}></BookShelf>)}
             </div>
           </div>
           <div className="open-search">

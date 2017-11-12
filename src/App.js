@@ -16,15 +16,13 @@ class BooksApp extends React.Component {
     this.loadBooks();
   }
 
-  initializeBookShelfs() {
-    let bookshelfs = this.state.books.map(e => e.shelf).filter((e, i, self) => self.indexOf(e) === i);
-    this.setState({bookshelfs: bookshelfs});
+  getBookShelfs(books) {
+    return books.map(e => e.shelf).filter((e, i, self) => self.indexOf(e) === i);
   }
 
   loadBooks() {
-    BooksAPI.getAll().then(data => {
-      this.setState({books: data});
-      this.initializeBookShelfs();
+    BooksAPI.getAll().then(books => {
+      this.setState({books: books, bookshelfs: this.getBookShelfs( books ) });
     });
   }
 
@@ -34,16 +32,14 @@ class BooksApp extends React.Component {
     return books.filter(e => e.shelf === bookshelf);
   }
 
+  changeShelfFromBook = (e,title,shelf) => {
+    e.title === title && (e.shelf = shelf)
+    return e;
+  }
+
   updateBook = (title, shelf) => {
     BooksAPI.update(title, shelf)
-
-    let books = this.state.books.map(e => {
-      if (e.title === title) {
-        e.shelf = shelf;
-      }
-      return e;
-    });
-
+    let books = this.state.books.map( (e) => this.changeShelfFromBook(e,title,shelf) )
     this.setState({books: books});
   }
 

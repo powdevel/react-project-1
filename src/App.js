@@ -47,13 +47,13 @@ class BooksApp extends React.Component {
   render() {
 
     return (<div className="app">
+      <div className="list-books-title">
+        <h1>MyReads</h1>
+      </div>
 
       <Route path="/search" exact={true} render={() => <Search getBooks={this.getBooks} updateBook={this.updateBook}/>}/>
 
       <Route path="/" exact={true} render={() => <div className="list-books">
-          <div className="list-books-title">
-            <h1>MyReads</h1>
-          </div>
           <div className="list-books-content">
             {this.state.bookshelfs.map(e => <BookShelf books={this.booksFromBookShelf(e, this.state.books)} id={e} key={e} updateBook={this.updateBook}></BookShelf>)}
             {!this.state.loaded && (<div className="book-loader">Loading contents...</div>)}

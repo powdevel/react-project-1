@@ -4,6 +4,24 @@ import './App.css'
 import BookShelf from './BookShelf'
 import {Link, Route} from 'react-router-dom'
 import Search from './Search.js'
+import {AnimatedSwitch} from 'react-router-transition'
+
+function mapStyles(styles) {
+  return {opacity: styles.o}
+}
+
+// child matches will...
+const fadeTransition = {
+  atEnter: {
+    o: 1
+  },
+  atLeave: {
+    o: 0
+  },
+  atActive: {
+    o: 1
+  }
+};
 
 class BooksApp extends React.Component {
   state = {
@@ -18,7 +36,7 @@ class BooksApp extends React.Component {
   }
   
   getBookShelfs(books) {
-    return books.map(e => e.shelf).filter((e, i, self) => self.indexOf(e) === i);
+    return ['currentlyReading', 'wantToRead', 'read'];
   }
 
   loadBooks() {
@@ -51,19 +69,23 @@ class BooksApp extends React.Component {
         <h1>MyReads</h1>
       </div>
 
-      <Route path="/search" exact={true} render={() => <Search getBooks={this.getBooks} updateBook={this.updateBook}/>}/>
+      <div className="relative-wrapper">
+        <AnimatedSwitch atEnter={fadeTransition.atEnter} atLeave={fadeTransition.atLeave} atActive={fadeTransition.atActive} mapStyles={mapStyles} className="route-wrapper">
+          <Route path="/search" exact={true} render={() => <Search getBooks={this.getBooks} updateBook={this.updateBook}/>}/>
 
-      <Route path="/" exact={true} render={() => <div className="list-books">
-          <div className="list-books-content">
-            {this.state.bookshelfs.map(e => <BookShelf books={this.booksFromBookShelf(e, this.state.books)} id={e} key={e} updateBook={this.updateBook}></BookShelf>)}
-            {!this.state.loaded && (<div className="book-loader">Loading contents...</div>)}
-          </div>
-          <div className="open-search">
-            <Link to="/search">
-              Add a book
-            </Link>
-          </div>
-        </div>}/>
+          <Route path="/" exact={true} render={() => <div className="list-books">
+              <div className="list-books-content">
+                {this.state.bookshelfs.map(e => <BookShelf books={this.booksFromBookShelf(e, this.state.books)} id={e} key={e} updateBook={this.updateBook}></BookShelf>)}
+                {!this.state.loaded && (<div className="book-loader">Preparing contents...</div>)}
+              </div>
+              <div className="open-search">
+                <Link to="/search">
+                  Add a book
+                </Link>
+              </div>
+            </div>}/>
+        </AnimatedSwitch>
+      </div>
 
     </div>)
   }

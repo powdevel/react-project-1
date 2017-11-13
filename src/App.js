@@ -56,7 +56,7 @@ class BooksApp extends React.Component {
       <Route path="/" exact={true} render={() => <div className="list-books">
           <div className="list-books-content">
             {this.state.bookshelfs.map(e => <BookShelf books={this.booksFromBookShelf(e, this.state.books)} id={e} key={e} updateBook={this.updateBook}></BookShelf>)}
-            {!this.state.loaded && (<div className="book-loader">Loading contents...</div>)}
+            {!this.state.loaded && (<div className="book-loader">Preparing contents...</div>)}
           </div>
           <div className="open-search">
             <Link to="/search">

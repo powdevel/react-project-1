@@ -16,7 +16,7 @@ class BooksApp extends React.Component {
     super(props);
     this.loadBooks();
   }
-
+  
   getBookShelfs(books) {
     return books.map(e => e.shelf).filter((e, i, self) => self.indexOf(e) === i);
   }

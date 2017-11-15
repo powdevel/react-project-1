@@ -87,29 +87,15 @@ class BooksApp extends React.Component {
           </div>
 
           <div className="relative-wrapper">
-              <AnimatedSwitch
-                  atEnter={{ o: 1 }}
-                  atLeave={{ o: 0 }}
-                  atActive={{ o: 1 }}
-                  mapStyles={styles => ({ opacity: styles.o })}
-              className="route-wrapper">
-                  <Route
-                      path="/search"
-                      exact={true}
-                      render={() => (
-                          <Search getBooks={this.getBooks} updateBook={this.updateBook} loadingMORE={this.loadingMORE} loadingOFF={this.loadingOFF} />
-                      )}
-                  />
+              <AnimatedSwitch atEnter={{ o: 1 }} atLeave={{ o: 0 }} atActive={{ o: 1 }} mapStyles={styles => ({ opacity: styles.o })} className="route-wrapper">
+                  <Route path="/search" exact={true} render={() => <Search getBooks={this.getBooks} updateBook={this.updateBook} loadingMORE={this.loadingMORE} loadingOFF={this.loadingOFF} />} />
                   <Route
                       path="/"
                       exact={true}
                       render={() => (
                           <div className="list-books">
                               <div className="list-books-content">
-                                  {this.state.loaded &&
-                                      this.state.bookshelfs.map(e => (
-                                          <BookShelf books={this.state.books.filter(this.fromBookShelf, e)} id={e} key={e} updateBook={this.updateBook} />
-                                      ))}
+                                  {this.state.loaded && this.state.bookshelfs.map(e => <BookShelf books={this.state.books.filter(this.fromBookShelf, e)} id={e} key={e} updateBook={this.updateBook} />)}
                                   {this.state.loaded && (
                                       <div className="open-search">
                                           <Link to="/search">Add a book</Link>

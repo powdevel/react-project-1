@@ -9,12 +9,14 @@ class Book extends React.Component {
   // }
 
   render() {
+
+
     return (<div className="book">
       <div className="book-top">
         <div className="book-cover" style={{
             width: 128,
             height: 193,
-            backgroundImage: `url("${this.props.data.imageLinks.thumbnail}")`
+            background: typeof this.props.data.imageLinks !== 'undefined' ? `url("${this.props.data.imageLinks.thumbnail}"`: '#eee'
           }}></div>
         <div className="book-shelf-changer">
           <select defaultValue={this.props.data.shelf} onChange={(e) => this.props.updateBook(this.props.data, e.target.value)}>
@@ -35,7 +37,8 @@ class Book extends React.Component {
         {this.props.data.title}
       </div>
       <div className="book-authors">
-        {this.props.data.authors.join(' ')}
+          {/* TODO */}
+        {  typeof this.props.data.authors != 'undefined' && this.props.data.authors.join(' ') }
       </div>
     </div>)
   }

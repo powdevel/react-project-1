@@ -21,6 +21,7 @@ body,
   position: fixed;
   top: 0px;
   z-index: 1;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 0 6px rgba(0, 0, 0, 0.23);
 }
 
 .list-books {
@@ -270,4 +271,6 @@ h1 span {
 h1 span.loading {
   opacity: 1;
   width: 50px;
+  margin-left: 1rem;
+
 }

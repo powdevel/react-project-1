@@ -1,16 +1,7 @@
 import React from 'react'
 
 class Book extends React.Component {
-
-  // updateBook (title, shelf) {
-  //      console.log('evento',e);
-  //      console.log('book',book);
-  //     this.props.data.updateBook(title, );
-  // }
-
   render() {
-
-
     return (<div className="book">
       <div className="book-top">
         <div className="book-cover" style={{
@@ -37,8 +28,7 @@ class Book extends React.Component {
         {this.props.data.title}
       </div>
       <div className="book-authors">
-          {/* TODO */}
-        {  typeof this.props.data.authors != 'undefined' && this.props.data.authors.join(' ') }
+        {  typeof this.props.data.authors !== 'undefined' && this.props.data.authors.join(' ') }
       </div>
     </div>)
   }

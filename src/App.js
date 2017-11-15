@@ -20,8 +20,10 @@ class BooksApp extends React.Component {
     this.loadBooks();
   }
 
+  // to show an indicator of loading
   loadingClass = () => (this.state.loading ? "loading" : "");
 
+  // one more loading process
   loadingMORE = () =>
     this.setState({
       loading: this.state.loading + 1
@@ -32,6 +34,7 @@ class BooksApp extends React.Component {
       loading: this.state.loading > 1 ? this.state.loading - 1 : 0
     });
 
+  // to hide loading indicator no matter what
   loadingOFF = () => this.setState({ loading: 0 });
 
   loadBooks() {
@@ -81,8 +84,7 @@ class BooksApp extends React.Component {
       <div className="app">
           <div className="list-books-title">
               <h1>
-                  MyReads
-                  <span className={this.loadingClass()} />
+                  MyReads <span className={this.loadingClass()} />{" "}
               </h1>
           </div>
 

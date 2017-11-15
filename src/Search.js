@@ -35,14 +35,13 @@ class Search extends React.Component {
   };
 
   changeSearchResults = (query, books) => {
-    this.setState({ query: query, filteredBooks: [] });
+    this.setState({ query: query, filteredBooks: books });
   };
 
   onQueryChange = query => {
     let token = ++this.searchToken;
 
     if (query === "") {
-      // this.setState({query: query, filteredBooks: []});
       this.changeSearchResults("", []);
       this.props.loadingOFF(); // Hides loading indicator
       return;

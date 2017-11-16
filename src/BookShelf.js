@@ -16,7 +16,7 @@ class BookShelf extends React.Component {
           <div className="bookshelf-books">
               <TransitionGroup component="ol" className="books-grid">
                   {this.props.books.map(e => (
-                      <Fade key={e.title}>
+                      <Fade key={e.id}>
                           <li>
                               <Book data={e} updateBook={this.props.updateBook} />
                           </li>

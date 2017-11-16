@@ -78,7 +78,7 @@ class Search extends React.Component {
               <TransitionGroup component="ol" className="books-grid">
                   {this.state.query !== "" &&
                       this.state.filteredBooks.map(e => (
-                          <Fade key={e.title}>
+                          <Fade key={e.id}>
                               <li>
                                   <Book data={e} updateBook={this.props.updateBook} />
                               </li>

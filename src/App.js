@@ -1,9 +1,9 @@
 import React from "react";
-import * as BooksAPI from "./BooksAPI";
 import { Route } from "react-router-dom";
-import Search from "./Search";
 import { AnimatedSwitch } from "react-router-transition";
+import * as BooksAPI from "./BooksAPI";
 import Main from "./Main";
+import Search from "./Search";
 import "./App.css";
 
 class BooksApp extends React.Component {
@@ -24,15 +24,9 @@ class BooksApp extends React.Component {
   loadingClass = () => (this.state.loading ? "loading" : "");
 
   // one more loading process
-  loadingMORE = () =>
-    this.setState({
-      loading: this.state.loading + 1
-    });
+  loadingMORE = () => this.setState({ loading: this.state.loading + 1 });
 
-  loadingLESS = () =>
-    this.setState({
-      loading: this.state.loading > 1 ? this.state.loading - 1 : 0
-    });
+  loadingLESS = () => this.setState({ loading: this.state.loading > 1 ? this.state.loading - 1 : 0 });
 
   // to hide loading indicator no matter what
   loadingOFF = () => this.setState({ loading: 0 });
@@ -43,9 +37,7 @@ class BooksApp extends React.Component {
         this.setState({ books: books, loaded: true });
       })
       .catch(() => {
-        this.setState({
-          message: "Unable to fetch contents... Are you connected to the Internet?"
-        });
+        this.setState({ message: "Unable to fetch contents... Are you connected to the Internet?" });
       });
   }
 
@@ -76,21 +68,22 @@ class BooksApp extends React.Component {
   };
 
   render() {
-    let me = this.state;
+    let me = this.state; // to simplify code
     return (
       <div className="app">
+          {/* Common header */}
           <div className="list-books-title">
-          <h1>
-            MyReads <span className={this.loadingClass()} />
-          </h1>
-        </div>
-
-        <div className="relative-wrapper">
-          <AnimatedSwitch atEnter={{ o: 1 }} atLeave={{ o: 0 }} atActive={{ o: 1 }} mapStyles={styles => ({ opacity: styles.o })} className="route-wrapper">
-            <Route path="/search" exact={true} render={() => <Search getBooks={this.getBooks} updateBook={this.updateBook} loadingMORE={this.loadingMORE} loadingOFF={this.loadingOFF} />} />
-            <Route path="/" exact={true} render={() => <Main loaded={me.loaded} bookshelfs={me.bookshelfs} books={me.books} message={me.message} updateBook={this.updateBook} />} />
-          </AnimatedSwitch>
-        </div>
+              <h1>
+                  MyReads <span className={this.loadingClass()} />
+              </h1>
+          </div>
+          {/* The routes */}
+          <div className="relative-wrapper">
+              <AnimatedSwitch atEnter={{ o: 1 }} atLeave={{ o: 0 }} atActive={{ o: 1 }} mapStyles={styles => ({ opacity: styles.o })} className="route-wrapper">
+                  <Route path="/search" exact={true} render={() => <Search getBooks={this.getBooks} updateBook={this.updateBook} loadingMORE={this.loadingMORE} loadingOFF={this.loadingOFF} />} />
+                  <Route path="/" exact={true} render={() => <Main loaded={me.loaded} bookshelfs={me.bookshelfs} books={me.books} message={me.message} updateBook={this.updateBook} />} />
+              </AnimatedSwitch>
+          </div>
       </div>
     );
   }

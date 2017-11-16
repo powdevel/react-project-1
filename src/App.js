@@ -69,8 +69,8 @@ class BooksApp extends React.Component {
     this.loadingMORE();
     BooksAPI.update(book, shelf)
       .then(() => {
-        let iHaveThatBook = this.state.books.filter(this.findBookByID, book);
-        let updatedBooks = iHaveThatBook.length ? this.state.books.map(this.updateBookShelf, book) : this.state.books.concat(book);
+        let iHaveThatBook = this.state.books.find(this.findBookByID, book);
+        let updatedBooks = iHaveThatBook ? this.state.books.map(this.updateBookShelf, book) : this.state.books.concat(book);
         this.setState({ books: updatedBooks });
         this.loadingLESS();
       })
